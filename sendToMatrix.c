@@ -2,7 +2,7 @@
  *          HDMI Switch Matrix Controller 1.0 by                       *
  *                      eL_Bart0(-[at]-)dietunichtguten.org            * 
  *                                                                     *
- * 		       	     Released under the GPL 2.0                        *
+ * 		     Released under the GPL 2.0                        *
  *       (http://www.gnu.org/licenses/gpl-2.0.html)                    *
  *                                                                     *
  *      Developed for and tested with: Ligawo(R) HDMI Matrix 4x2       *
