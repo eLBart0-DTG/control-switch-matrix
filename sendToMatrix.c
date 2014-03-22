@@ -44,10 +44,10 @@ int closeCOMHandle(HANDLE h)
 	
 	if (CloseHandle(h) == 0) 
 	{
-		fprintf(stderr,"failed.\n");
+	    fprintf(stderr,"failed.\n");
 	} else 
 	{
-		fprintf(stderr,"OK.\n");
+	    fprintf(stderr,"OK.\n");
 	}
 	    
 	return 1;
@@ -56,10 +56,11 @@ int closeCOMHandle(HANDLE h)
 int main(int argc, char **argv)
 {
 	
-	if (argc < 2) {
-		showParams();
-		return 1;
-	}
+    if (argc < 2) 
+    {
+        showParams();
+	return 1;
+    }
 	
     // declare handle, dcb and timeout struct
     HANDLE h;
@@ -68,17 +69,16 @@ int main(int argc, char **argv)
          
     // opening the COM port
     fprintf(stderr, "Opening COM port (%s)...",argv[1]);
-    h = CreateFile(argv[1], GENERIC_READ|GENERIC_WRITE, 0, NULL,
-                         OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    h = CreateFile(argv[1], GENERIC_READ|GENERIC_WRITE, 0, NULL,OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
               
     // when we could not open the serial port                     
     if (h == INVALID_HANDLE_VALUE)
     {
-            fprintf(stderr, "Failed.\n");
-            return 1;
+        fprintf(stderr, "failed.\n");
+        return 1;
     } else 
     {
-		fprintf(stderr, "OK.\n");
+    	fprintf(stderr, "OK.\n");
     }
      
     // getting size of dcb
@@ -93,8 +93,8 @@ int main(int argc, char **argv)
         return closeCOMHandle(h);
     } else 
     {
-		fprintf(stderr, "OK.\n");
-	}
+	fprintf(stderr, "OK.\n");
+    }
     
     // setting COM port connection properties
     dcb.BaudRate = 57600;
@@ -110,12 +110,12 @@ int main(int argc, char **argv)
     // setting state of the com port
     if(SetCommState(h, &dcb) == 0)
     {
-        fprintf(stderr, "failed\n");
+        fprintf(stderr, "failed.\n");
         return closeCOMHandle(h);
     } else
     {
-		fprintf(stderr,"OK.\n");	
-	}
+	fprintf(stderr,"OK.\n");	
+    }
  
     // setting COM port timeout properties
     timeouts.ReadIntervalTimeout = 50;
@@ -132,11 +132,11 @@ int main(int argc, char **argv)
         return closeCOMHandle(h);
     } else
     {
-		fprintf(stderr,"OK.\n");
-	}
+	fprintf(stderr,"OK.\n");
+    }
  
     // saving the count of bytes written to the COM port
-    DWORD bytes_written, total_bytes_written = 0;
+    DWORD bytes_written;
     
     // getting the command to send to the COM port from the command line
     char command[strlen(argv[2])+2]; 
@@ -149,15 +149,14 @@ int main(int argc, char **argv)
     // writing the command to the COM port
     if (!WriteFile(h, command, strlen(command), &bytes_written, NULL)) 
     {
-	    fprintf(stderr, "failed.\n");
+	fprintf(stderr, "failed.\n");
         return closeCOMHandle(h);
-	    	
-	} else 
-	{
-		fprintf(stderr,"OK (%d bytes sent).\n",bytes_written);
+    } else 
+    {
+        fprintf(stderr,"OK (%d bytes sent).\n",bytes_written);
         closeCOMHandle(h);
         return 0;
-	}
+    }
 }
 
 
